@@ -8,7 +8,7 @@ module.exports = function makeRouterWithSockets (io) {
 
   // a reusable function
   function respondWithAllTweets (req, res, next){
-    client.query('SELECT * FROM tweets, users', function (err, result) {
+    client.query('SELECT * FROM tweets, users WHERE users.id = tweets.user_id', function (err, result) {
       if (err) return next(err); // pass errors to Express
       var tweets = result.rows;
       res.render('index', { title: 'Twitter.js', tweets: tweets, showForm: true });
